@@ -32,43 +32,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- JSON-LD: Datos estructurados -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "AccountingService",
-    "name": "Asesoría Mejorada Contable y Fiscal",
-    "image": "https://www.asesoriamejorada.com.mx/og-image.jpg",
-    "url": "https://www.asesoriamejorada.com.mx/",
-    "telephone": "+52-55-9343-5999",
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Ciudad de México",
-      "addressLocality": "CDMX",
-      "addressRegion": "CDMX",
-      "postalCode": "01000",
-      "addressCountry": "MX"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 19.4326,
-      "longitude": -99.1332
-    },
-    "openingHours": "Mo-Fr 09:00-18:00",
-    "sameAs": [
-      "https://www.facebook.com/",
-      "https://wa.me/525593435999"
-    ],
-    "description": "Despacho contable en CDMX especializado en contabilidad general, cumplimiento fiscal, nómina, REPSE, plataformas tecnológicas y devoluciones de impuestos."
-  }
-  </script>
-
-  <meta name="geo.region" content="MX-CDMX">
-  <meta name="geo.placename" content="Ciudad de México">
-  <meta name="geo.position" content="19.4326;-99.1332">
-  <meta name="ICBM" content="19.4326, -99.1332">
-
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -212,6 +175,14 @@
       background: linear-gradient(135deg, #003366, #1ebe57);
     }
 
+    #success-message {
+      display: none;
+      color: green;
+      font-size: 20px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
     footer {
       text-align: center;
       font-size: 20px;
@@ -266,20 +237,41 @@
 
   <p><strong>Teléfono de oficina:</strong> 55 9343 5999</p>
 
-  <form action="https://formsubmit.co/scemendoza20@gmail.com" method="POST">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://www.asesoriamejorada.com.mx/gracias.html">
+  <!-- FORMULARIO ACTUALIZADO CON WEB3FORMS -->
+  <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="TU-ACCESS-KEY-AQUI"> <!-- Reemplázalo con tu clave -->
     <input type="text" name="name" placeholder="Nombre completo" required>
     <input type="tel" name="phone" placeholder="Teléfono" required>
     <input type="email" name="email" placeholder="Correo electrónico" required>
     <textarea name="message" rows="5" placeholder="Mensaje" required></textarea>
     <input type="submit" value="Enviar">
   </form>
+
+  <div id="success-message">¡Gracias! Tu mensaje ha sido enviado correctamente.</div>
 </div>
 
 <footer>
   &copy; 2025 Asesoría Mejorada Contable y Fiscal | CDMX
 </footer>
 
+<script>
+  const form = document.getElementById("contact-form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
+    });
+    if (response.ok) {
+      form.reset();
+      document.getElementById("success-message").style.display = "block";
+    } else {
+      alert("Hubo un problema al enviar el mensaje. Por favor inténtalo de nuevo.");
+    }
+  });
+</script>
+
 </body>
 </html>
+
